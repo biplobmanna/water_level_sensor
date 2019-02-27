@@ -1,10 +1,13 @@
 # Installing all the python modules required for the program to run
-if pip freeze | grep -q "requests==1.1.0"; then
-	echo '** requests==1.1.0 found!'
+echo "***************************************************************************"
+echo "** Checking/Installing required python modules..."
+echo "***************************************************************************"
+if python -c 'import pkgutil; exit(not pkgutil.find_loader("requests"))'; then
+	echo '** requests found!'
 else
-	echo '>> installing requests==1.1.0 ...'
+	echo '>> installing requests...'
 	echo ''
-	sudo pip install requests==1.1.0
+	sudo pip install requests
 	echo ''
 fi
 
@@ -17,7 +20,9 @@ else
 	echo ''
 fi
 
-
+echo "***************************************************************************"
+echo "** Checking/Creating the required folders..."
+echo "***************************************************************************"
 # Creating a Projects directory if it doesn't exist
 if [ -d "/home/pi/Projects" ]; then
 	echo "** /home/pi/Projects Directory exists!"
@@ -42,6 +47,10 @@ else
 	echo ">> New directory /home/pi/WaterLevelSensor/Log created!"
 fi
 
+echo ""
+echo "***************************************************************************"
+echo "** Checking/Copying python files..."
+echo "***************************************************************************"
 # Checking if the main python file is present or not
 if [ -f "/home/pi/Projects/WaterLevelSensor/water_level_sensor.py" ]; then
 	echo "** water_level_sensor.py exists!"
@@ -62,12 +71,18 @@ else
 	echo "!!!! Remove the last trailing '/' for the link to work !!!!"
 fi
 
+echo ""
+echo "***************************************************************************"
 # Installing daemontools
 echo ">> Checking and installing the latest daemmontools ..."
+echo "***************************************************************************"
 echo ""
 sudo apt-get install daemontools daemontools-run
 echo ""
 
+echo "***************************************************************************"
+echo "** Setting up daemontools..."
+echo "***************************************************************************"
 # Adding a daemontools startup entry to rc.local
 # so that the program runs on boot
 if grep -q "csh -cf 'svscanboot &'" "/etc/rc.local"; then
@@ -96,6 +111,7 @@ fi
 
 # Restarting the RPi in 10 secs
 echo ""
+echo "***************************************************************************"
 echo "** The RPi will restart in 5 mins..."
 echo "***************************************************************************"
 echo "** Take this time to add the firebase-database link in firebase_link.py"
@@ -105,5 +121,6 @@ echo "** Ensure that the trailing '/' is deleted..."
 echo "***************************************************************************"
 echo "** The setup is successful!"
 echo "** Awating restart..."
+echo "***************************************************************************"
 
 sudo shutdown +5
