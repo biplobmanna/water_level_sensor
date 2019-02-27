@@ -1,0 +1,2 @@
+#!/bin/bash
+exec /usr/bin/python /home/pi/Projects/WaterLevelSensor/water_level_sensor.py
