@@ -37,3 +37,8 @@ For additional/detailed information to setup Pi-Headless, google it, or visit [h
 * A service will be created using **daemontools** named **water_level_sensor** and will run automatically. 
 
 To manage services using daemontools, visit [here](http://samliu.github.io/2017/01/10/daemontools-cheatsheet.html), and/or [here.](https://cr.yp.to/daemontools.html)
+
+### Project Path and Logs
+* Project path in RPi is `~/Projects/WaterLevelSensor/`
+* Logs are present in `~/Project/WaterLevelSensor/Log/'
+* Check the Logs or your firebase database to see if the program is working or not. 
