@@ -38,7 +38,7 @@ fi
 if [ -d "/home/pi/Projects/WaterLevelSensor/Log" ]; then
 	echo "** /home/pi/Projects/WaterLevelSensor/Log directory exists!"
 else
-	mkdir /home/pi/WaterLevelSensor/Log
+	mkdir /home/pi/Projects/WaterLevelSensor/Log
 	echo ">> New directory /home/pi/WaterLevelSensor/Log created!"
 fi
 
@@ -93,3 +93,17 @@ else
 	sudo chmod u+x /etc/service/water_level_sensor/run
 	echo ">> Copied and changed permission of 'run' into /etc/service/water_level_sensor/"
 fi
+
+# Restarting the RPi in 10 secs
+echo ""
+echo "** The RPi will restart in 5 mins..."
+echo "***************************************************************************"
+echo "** Take this time to add the firebase-database link in firebase_link.py"
+echo "** The file is present in /home/pi/Projects/WaterLevelSensor/"
+echo "** Add the path to the FIREBASE_PATH variable.."
+echo "** Ensure that the trailing '/' is deleted..."
+echo "***************************************************************************"
+echo "** The setup is successful!"
+echo "** Awating restart..."
+
+sudo shutdown +5
