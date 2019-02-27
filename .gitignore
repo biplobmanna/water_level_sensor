@@ -1,0 +1,6 @@
+Log/*
+firebase_link.py
+*.swo*
+*.save*
+*.swp*
+*.pyc*
