@@ -28,6 +28,7 @@ For additional/detailed information to setup Pi-Headless, google it, or visit [h
 ### Installing and Setup
 * Either `git clone` or download zip of the repository to any location on Pi. 
 * Preferably use `git clone <<link_to_remote_git>>`. Get the link from the repository. 
+* `cd` into the directory.
 * `ls` in the same path to check all the files as present in the repository. 
 * Change permission of **install.sh** using `sudo chmod +rwx install.sh`
 * Run **install.sh** using `./install.sh`
