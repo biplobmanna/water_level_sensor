@@ -40,5 +40,5 @@ To manage services using daemontools, visit [here](http://samliu.github.io/2017/
 
 ### Project Path and Logs
 * Project path in RPi is `~/Projects/WaterLevelSensor/`
-* Logs are present in `~/Project/WaterLevelSensor/Log/`
+* Logs are present in `~/Projects/WaterLevelSensor/Log/`
 * Check the Logs or your firebase database to see if the program is working or not. 
