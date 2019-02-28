@@ -25,6 +25,13 @@ For additional/detailed information to setup Pi-Headless, google it, or visit [h
 * Pi will connect to WiFi. Open router-page, find the IP of Pi, and ssh into Pi, or follow the link above to set it up. 
 * Update Pi repositories using `sudo apt-get update`
 
+### Connecting the **HC SR04** sensor to the Pi
+* Visit this [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) for setup to the Pi. 
+* To check the Pin Layout of RPi, visit [here.](https://pinout.xyz/)
+* Once everything is connected properly, follow the first part of the instructions. 
+* Test the program to check if everything is working. 
+* Once everything works, setup the program to autorun using **daemontools**
+
 ### Installing and Setup
 * Either `git clone` or download zip of the repository to any location on Pi. 
 * Preferably use `git clone <<link_to_remote_git>>`. Get the link from the repository. 
