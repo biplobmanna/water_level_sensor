@@ -47,7 +47,7 @@ For additional/detailed information to setup Pi-Headless, google it, or visit [h
 * Pi will reboot after 5 mins, take that time to setup the Firebase Database link in the appropriate file, as given in the instructions in the setup. 
 * A service will be created using **daemontools** named **water_level_sensor** and will run automatically. 
 
-To manage services using daemontools, visit [here](http://samliu.github.io/2017/01/10/daemontools-cheatsheet.html), and/or [here.](https://cr.yp.to/daemontools.html)
+To manage services using daemontools, visit [here](http://samliu.github.io/2017/01/10/daemontools-cheatsheet.html), and/or [here](https://cr.yp.to/daemontools.html), and/or [here.](https://isotope11.com/blog/manage-your-services-with-daemontools)
 
 ### Aliases for handling daemontools service
 * The script **setup_daemontools.sh** has setup some aliases to start/stop/pause/status the **water_level_sensor** services
