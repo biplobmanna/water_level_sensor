@@ -41,6 +41,14 @@ For additional/detailed information to setup Pi-Headless, google it, or visit [h
 
 To manage services using daemontools, visit [here](http://samliu.github.io/2017/01/10/daemontools-cheatsheet.html), and/or [here.](https://cr.yp.to/daemontools.html)
 
+### Aliases for handling daemontools service
+* The script **setup_daemontools.sh** has setup some aliases to start/stop/pause/status the water_level_sensor services
+* The list of aliases are as follows:
+	* `wls_start` --> Starts the service
+	* `wls_stop`  --> Stops the service
+	* `wls_pause` --> Pauses the service
+	* `wls_stat`  --> Checks the status of the service
+
 ### Project Path and Logs
 * Project path in RPi is `~/Projects/WaterLevelSensor/`
 * Logs are present in `~/Projects/WaterLevelSensor/Log/`
