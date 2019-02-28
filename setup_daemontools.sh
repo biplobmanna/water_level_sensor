@@ -36,6 +36,31 @@ else
 	echo ">> Copied and changed permission of 'run' into /etc/service/water_level_sensor/"
 fi
 
+# Creating alias in ~/.bashrc
+echo "***************************************************************************"
+echo "** Setting up alias in ~/.bashrc"
+echo "***************************************************************************"
+if grep -q "# Setting up alias for daemontools service" /home/pi/.bashrc; then
+	echo "** water_level_service alias present already!"
+else
+	echo "# Setting up alias for daemontools service" >> /home/pi/.bashrc
+	echo "alias wls_start='sudo svc -u /etc/service/water_level_sensor'" >> /home/pi/.bashrc
+	echo "alias wls_stop='sudo svc -d /etc/service/water_level_sensor'"  >> /home/pi/.bashrc
+	echo "alias wls_pause='sudo svc -p /etc/service/water_level_sensor'"  >> /home/pi/.bashrc
+	echo "alias wls_stat='sudo svstat /etc/service/water_level_sensor'"  >> /home/pi/.bashrc
+	echo "** Alias set; list of alias are as follows:"
+	echo "***************************************************************************"
+	echo "** wls_start --> Start the service"
+	echo "** wls_stop --> Stop the service"
+	echo "** wls_pause --> Pause the service"
+	echo "** wls_stat --> Gives the status of the service"
+	echo "***************************************************************************"
+	echo "** Refreshing .bashrc"
+	source /home/pi/.bashrc
+fi
+
+
+
 # Restarting the RPi in 10 secs
 echo ""
 echo "***************************************************************************"
