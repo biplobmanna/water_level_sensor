@@ -28,7 +28,7 @@ For additional/detailed information to setup Pi-Headless, google it, or visit [h
 ### Connecting the **HC SR04** sensor to the Pi
 * Visit this [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) to setup the Pi and the sensor. 
 * To check the Pin Layout of RPi, visit [here.](https://pinout.xyz/)
-* Once everything is connected properly, follow the first part of the instructions. 
+* Once everything is connected properly, follow the **first part** of the instructions. 
 * Test the program to check if everything is working. 
 * Once everything works, setup the program to autorun using **daemontools**
 
