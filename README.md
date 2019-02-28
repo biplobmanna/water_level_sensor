@@ -32,6 +32,9 @@ For additional/detailed information to setup Pi-Headless, google it, or visit [h
 * `ls` in the same path to check all the files as present in the repository. 
 * Change permission of **install.sh** using `sudo chmod +rwx install.sh`
 * Run **install.sh** using `./install.sh`
+* Check the running of the python program `~/Projects/WaterLevelSensor/water_level_sensor.py`
+* Once verified, need to run the `setup_daemontools.sh` Change permission of **setup_daemontools.sh** using `sudo chmod +rwx setup_daemontools.sh`
+* Run **setup_daemontools.sh** using `./setup_daemontools.sh`
 * Follow the instructions on screen. 
 * Pi will reboot after 5 mins, take that time to setup the Firebase Database link in the appropriate file, as given in the instructions in the setup. 
 * A service will be created using **daemontools** named **water_level_sensor** and will run automatically. 
