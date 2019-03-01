@@ -34,6 +34,13 @@ def is_motor_switch_on():
 	else:
 		return False
 
+# Check if sump is present
+def is_sump_present():
+	sump_present = firebase.get('/is_sump_present', None)
+	if sump_present == "YES":
+		return True
+	else:
+		return False
 
 # Change the MOTOR SWITCH status in the FB-DB
 def set_motor_switch_status(status):
@@ -59,3 +66,12 @@ def set_distance(distance):
 # Fetch the distance from FB-DB
 def get_distance():
 	return firebase.get('/distance', None)
+
+# Fetch the distance_sump from FB-DB
+def get_distance_sump():
+	return firebase.get('/distance_sump', None)
+
+# Set the distance_sump into FB-DB
+def set_distance_sump(distance):
+	firebase.put('/', 'distance_sump', distance)
+	print('Distance Sump updated!')
