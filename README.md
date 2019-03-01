@@ -38,7 +38,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 		* `TRIG = 27`
 		* `ECHO = 22`
 	* All the Pin numbering is as per **BCM mode**. To check the Pin Layout of RPi, visit [here.](https://pinout.xyz/)
-* For both the sensors, connect **Vcc** of the sensor to any of the **3V** pin of the Pi, and **Gnd** of the sensor to any of **Gnd** pins of the Pi.
+* For both the sensors, connect **Vcc** of the sensor to any of the **5V** pin of the Pi, and **Gnd** of the sensor to any of **Gnd** pins of the Pi.
 
 ### Connecting the Motor Switch and the Main H/W Switch'
 * Connect the **Motor Switch** to `PIN 25`
@@ -55,21 +55,26 @@ Change the **country** code to your respectieve country ISO 2 code.
 * Once everything works, run the 2nd part of **Installing and Setup** to setup autorun using **daemontools**
 
 ### Installing and Setup
+#### Part 1:
 * Either `git clone` or download zip of the repository to any location on Pi. 
 * Preferably use `git clone <<link_to_remote_git>>`. Get the link from the repository. 
 * `cd` into the directory.
 * `ls` in the same path to check all the files as present in the repository. 
-* Change permission of **install.sh** using `sudo chmod +rwx install.sh`
 * Run **install.sh** using `./install.sh`
-* Check the running of the python program `~/Projects/WaterLevelSensor/water_level_sensor.py`
+	* If any error in **permissions**, change permission of **install.sh** using `chmod +rwx install.sh`
+* After successful execution of the above, a file **firebase_link.conf** will be created in the project path `~/Projects/WaterLevelSensor/`
+	* Inside the **firebase_link.conf** file, put the **link to firebase-database** in the **first line.**
+	* **Without the link to firebase-database** present in the **conf** file, the main program will not execute.
+	* **Remember to remove the last '/' of the link**
+* Run the main program using: `python ~/Projects/WaterLevelSensor/water_level_sensor.py`
 * *******************************************************************************************
-* Once verified, need to run the `setup_daemontools.sh` Change permission of **setup_daemontools.sh** using `sudo chmod +rwx setup_daemontools.sh`
+#### Part 2:
+* Once verified the run of the main program, follow the below steps.
 * Run **setup_daemontools.sh** using `./setup_daemontools.sh`
-* Follow the instructions on screen. 
-* Pi will reboot after 5 mins, take that time to setup the Firebase Database link in the appropriate file, as given in the instructions in the setup. 
-* A service will be created using **daemontools** named **water_level_sensor** and will run automatically. 
-
-To manage services using daemontools, visit [here](http://samliu.github.io/2017/01/10/daemontools-cheatsheet.html), and/or [here](https://cr.yp.to/daemontools.html), and/or [here.](https://isotope11.com/blog/manage-your-services-with-daemontools)
+	* If any error in **permissions**, change permission of **setup_daemontools.sh** using `chmod +rwx setup_daemontools.sh`
+* Once everything executes successfully, Pi will reboot after 1 min. 
+* A service will be created using **daemontools** named **water_level_sensor** and will run automatically thereafter. 
+* To read up on daemontools, and/or to manage services using daemontools, visit [here](http://samliu.github.io/2017/01/10/daemontools-cheatsheet.html), and/or [here](https://cr.yp.to/daemontools.html), and/or [here.](https://isotope11.com/blog/manage-your-services-with-daemontools)
 
 ### Aliases for handling daemontools service
 * The script **setup_daemontools.sh** has setup some aliases to start/stop/pause/status the **water_level_sensor** services
