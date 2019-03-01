@@ -54,7 +54,9 @@ def distance_op():
 		# Read the new distance
 		#new_distance = sio.read_distance()
 		# For testing
-		new_distance = int(raw_input("Enter distance:"))
+		#new_distance = int(raw_input("Enter distance:"))
+		from random import randint
+		new_distance = randint(0,30)
 	except:
 		print('Error reading distance data from the sensor!')
 		log.debug('Error reading distance data from the sensor!')
