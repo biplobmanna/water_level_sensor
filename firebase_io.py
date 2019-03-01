@@ -56,14 +56,3 @@ def set_distance(distance):
 	firebase.put('/', 'distance', distance)
 	print('Distance Updated!')
 
-# initialise all the global variables
-def init_all():
-	# Fetching initial distance from FB-DB
-	distance = firebase.get('/distance', None)
-	# Fetch initial Motor running status from FB-DB
-	motor_running_status = is_motor_switch_on()
-	
-	print('Initial distance fetched from FB-DB!')
-	print('Initial Motor running status fetched from FB-DB!')
-	
-	return distance, motor_running_status
