@@ -56,3 +56,6 @@ def set_distance(distance):
 	firebase.put('/', 'distance', distance)
 	print('Distance Updated!')
 
+# Fetch the distance from FB-DB
+def get_distance():
+	return firebase.get('/distance', None)
