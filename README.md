@@ -1,6 +1,27 @@
-## Water Level Sensor
+## Sensing the Water Level in a Tank
 ### Description:
-Need to read the water level in a tank using [HC SR04 UltraSonic Sensor](https://www.amazon.in/dp/B078J3L8LD/ref=cm_sw_em_r_mt_dp_U_bAQDCb5DWQCZC) and [Raspberry Pi 3b+](https://www.amazon.in/dp/B07BDR5PDW/ref=cm_sw_em_r_mt_dp_U_WDQDCbZ4T3C44) and send the data to Firebase. 
+* Two tanks are present:
+	* An **overhead tank**, which is mandatory.
+	* An **underground sump**, which is optional. 
+* Need to connect 2 **Ultrasonic Depth Sensor** to measure the water level. 
+	* One will be connected to the overhead tank. 
+	* One will be connected to the underground sump. 
+* Need to measure the depth of the water in both the tanks at **realtime**.
+* A motor is connected which will pump water based on the following conditions:
+	* If **underground sump** is present:
+		* If the water depth in the overhead tank is greater than a **max threshold**, i.e., tank is empty, and if the water depth in the underground sump is _**lesser**_ than a **threshold**, i.e., Water is present in the underground sump.
+			* Only then, switch **`Motor ON`**
+		* If the water depth in the overhead tank becomes lesser than a **min threshold**, i.e., tank is full, or if the water depth in the underground sump becomes _**greater**_ than a **threshold**, i.e., Water is not present in the underground sump.
+			* Switch **`Motor OFF`**
+		* For all other cases, maintain the **previous state** of the motor.
+	* If **underground sump** is not present:
+		* If the water depth in the overhead tank is greater than a **max threshold**, i.e., tankl is empty.
+			* Switch **`Motor ON`**
+		* If the water depth in the overhead tank is lesser than a **min threshold**, i.e, tank is full.
+			* Switch **`Motor OFF`**
+* A main **HW Switch** is also connected to the circuit, which can be used to manually turn the circuit On/Off
+* All the realtime **depths, motor status** is sent to firebase, which can then be viewed from a Mobile Application. 
+* A **Software main switch** is also present, which can also control the circuit On/Off from the Mobile App. 
 
 ### Setup Raspberry Pi for Headless Config
 * Download Latest Raspbian image
@@ -24,7 +45,8 @@ Change the **country** code to your respectieve country ISO 2 code.
 * Pi will **connect to WiFi.**
 * Alternatively, you can directly connect your Pi **via Ethernet cable to router.**
 * Open **router-page**, find the IP of Pi -- **default hostname of the pi is `raspberrypi`**
-* **ssh into Pi** using `ssh pi@<your_pi_IP_in_your_router>`, or follow the instructions in the [link.](https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup) Default **password** is **`raspberry`**
+* **ssh into Pi** using `ssh pi@<your_pi_IP_in_your_router>`, or follow the instructions in the [link.](https://desertbot.io/blog/headless-raspberry-pi-3-bplus-ssh-wifi-setup) 
+* Default **password** is **`raspberry`**
 * **Update** Pi repositories using `sudo apt-get update`
 
 ### Connecting the **HC SR04** sensor to the Pi
@@ -40,7 +62,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 	* All the Pin numbering is as per **BCM mode**. To check the Pin Layout of RPi, visit [here.](https://pinout.xyz/)
 * For both the sensors, connect **Vcc** of the sensor to any of the **5V** pin of the Pi, and **Gnd** of the sensor to any of **Gnd** pins of the Pi.
 
-### Connecting the Motor Switch and the Main H/W Switch'
+### Connecting the Motor Switch and the Main H/W Switch
 * Connect the **Motor Switch** to `PIN 25`
 	* For demo purposes, connect an LED to `PIN 25`
 	* To setup connections to LED, take help from this [website.](https://thepihut.com/blogs/raspberry-pi-tutorials/27968772-turning-on-an-led-with-your-raspberry-pis-gpio-pins)
@@ -51,7 +73,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 
 ### Steps after all circuit-connections are made
 * Once everything is connected properly, follow the **first part** of the **Installing and Setup**. 
-* **Test the program to check if everything is working. **
+* __Test the program to check if everything is working.__
 * Once everything works, run the 2nd part of **Installing and Setup** to setup autorun using **daemontools**
 
 ### Installing and Setup
@@ -83,6 +105,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 	* `wls_stop`  --> Stops the service
 	* `wls_pause` --> Pauses the service
 	* `wls_stat`  --> Checks the status of the service
+* Use the above aliases to manipulate the service.
 
 ### Project Path and Logs
 * Project path in RPi is `~/Projects/WaterLevelSensor/`
