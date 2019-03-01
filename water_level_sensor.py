@@ -52,11 +52,11 @@ def distance_op():
 	global distance
 	try:
 		# Read the new distance
-		#new_distance = sio.read_distance()
-		# For testing
+		new_distance = sio.read_distance()
+		# For testing -- uncomment the below, comment the above as required
 		#new_distance = int(raw_input("Enter distance:"))
-		from random import randint
-		new_distance = randint(0,30)
+		#from random import randint
+		#new_distance = randint(0,30)
 	except:
 		print('Error reading distance data from the sensor!')
 		log.debug('Error reading distance data from the sensor!')
