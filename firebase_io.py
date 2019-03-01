@@ -5,7 +5,7 @@ from firebase import firebase
 # Getting Firebase DB Path from firebase_link.conf
 # Reading link from firebase_link.conf
 try:
-	with open("firebase_link.conf","r") as fblink:
+	with open("/home/pi/Projects/WaterLevelSensor/firebase_link.conf","r") as fblink:
 		FIREBASE_PATH=fblink.readline().strip()
 	if not len(FIREBASE_PATH)>0:
 		raise Exception("File is empty!")
