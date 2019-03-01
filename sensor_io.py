@@ -21,12 +21,42 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 # Change the following PIN no's to change the circuit
+# Reading distance of Main Tank
 TRIG = 23
 ECHO = 24
+# Reading distance of SUMP
+TRIG_SUMP = 27
+ECHO_SUMP = 22
+
+# Motor Switch to set on/off
+MOTOR_SWITCH = 25
+NORMAL_SWITCH = 16
 
 # Setting the appropriate PIN mode
 GPIO.setup(TRIG, GPIO.OUT)
 GPIO.setup(ECHO, GPIO.IN)
+GPIO.setup(TRIG_SUMP, GPIO.OUT)
+GPIO.setup(ECHO_SUMP, GPIO.IN)
+
+# Setting the appropriate PIN mode switch
+GPIO.setup(MOTOR_SWITCH, GPIO.OUT)
+GPIO.setup(NORMAL_SWITCH, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
+# Set the motor_switch as On/Off
+def set_motor_switch(status):
+	if status:
+		print('Motor turned ON')
+		GPIO.output(MOTOR_SWITCH, True)
+	else:
+		print('Motor turned OFF')
+		GPIO.output(MOTOR_SWITCH, False)
+
+# Read the physical switch
+def read_normal_switch():
+	if GPIO.input(NORMAL_SWITCH):
+		return True
+	else:
+		return False
 
 # Function that reads distance from the HC-SR04 sensor
 def read_distance():
@@ -69,7 +99,48 @@ def read_distance():
 	#wls_logger.debug("Distance: "+str(distance)+" cm")
 	return distance
 
-# Checking Distance Treshold
+# Function that reads distance of sump from the HC-SR04 sensor
+def read_distance_sump():
+	# Clearing the TRIG Pin
+	GPIO.output(TRIG_SUMP, False)
+	# Waiting for sensor to settle( 10us // minimum is 2us)
+	time.sleep(0.00001)
+	
+	# Sending TRIG Pulse
+	GPIO.output(TRIG_SUMP, True)
+	# Stopping the Pulse after 10us
+	time.sleep(0.00001)
+	GPIO.output(TRIG_SUMP, False)
+	
+	# Calculating Pulse duration and distance
+	# Setting a limitation to the infinite loop
+	iter_count = 0
+	# Initially when the pulse is being sent, the ECHO is LOW
+	while GPIO.input(ECHO_SUMP)==0:
+		iter_count+=1
+		pulse_start = time.time()
+		if iter_count >= 50000:
+			raise Exception("Cannot read from the sensor! 1")
+	
+	# Setting a limitation to the infinite loop
+	iter_count = 0
+	# After the Pulse is sent, the ECHO becomes HIGH
+	while GPIO.input(ECHO_SUMP)==1:
+		iter_count+=1
+		pulse_end=time.time()
+		if iter_count >= 50000:
+			raise Ecxeption("Cannot read from the sensor! 2")
+	
+	# Difference in time is the duration
+	pulse_duration = pulse_end - pulse_start
+	# Calculating: distance = speed * time
+	distance = int(pulse_duration * (speed_of_sound / 2))
+	
+	print(str(distance)+" cm")
+	#wls_logger.debug("Distance: "+str(distance)+" cm")
+	return distance
+
+# Checking Distance Treshold for main Tank
 def is_distance_over_threshold(distance, prev_status=True):
 	if distance <= MIN_DISTANCE:
 		return False
@@ -77,3 +148,9 @@ def is_distance_over_threshold(distance, prev_status=True):
 		return True
 	else:
 		return prev_status
+# Checking Distance Treshold for sump
+def is_distance_sump_over_threshold(distance):
+	if distance >= MAX_DISTANCE_SUMP:
+		return True
+	else:
+		return False
