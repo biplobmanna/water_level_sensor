@@ -1,6 +1,7 @@
 Log/*
-firebase_link.py
+firebase_link.conf
 *.swo*
 *.save*
 *.swp*
 *.pyc*
+test*
