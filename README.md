@@ -19,9 +19,19 @@
 			* Switch **`Motor ON`**
 		* If the water depth in the overhead tank is lesser than a **min threshold**, i.e, tank is full.
 			* Switch **`Motor OFF`**
+		* For all other cases, maintain the **previous state** of the motor.
 * A main **HW Switch** is also connected to the circuit, which can be used to manually turn the circuit On/Off
 * All the realtime **depths, motor status** is sent to firebase, which can then be viewed from a Mobile Application. 
 * A **Software main switch** is also present, which can also control the circuit On/Off from the Mobile App. 
+
+
+### Hardware Requirements
+* Raspberry Pi any model, either with inbuilt WiFi or with a WiFi dongle.
+* Breadboard
+* Jumper Wires
+* Two HC-SR04 Ultrasonic Depth Sensor
+* Two resistors **each** of 1 kOhm, 2kOhm
+
 
 ### Setup Raspberry Pi for Headless Config
 * Download Latest Raspbian image
@@ -49,6 +59,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 * Default **password** is **`raspberry`**
 * **Update** Pi repositories using `sudo apt-get update`
 
+
 ### Connecting the **HC SR04** sensor to the Pi
 * Visit this [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) to setup the Pi and the sensor. 
 * Setup the resistors and other connections according to the schematic provided in the [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi). Keep the _**resistors connection the same**_, only change the **TRIG, ECHO** pins connection as per the information below.
@@ -62,6 +73,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 	* All the Pin numbering is as per **BCM mode**. To check the Pin Layout of RPi, visit [here.](https://pinout.xyz/)
 * For both the sensors, connect **Vcc** of the sensor to any of the **5V** pin of the Pi, and **Gnd** of the sensor to any of **Gnd** pins of the Pi.
 
+
 ### Connecting the Motor Switch and the Main H/W Switch
 * Connect the **Motor Switch** to `PIN 25`
 	* For demo purposes, connect an LED to `PIN 25`
@@ -71,10 +83,12 @@ Change the **country** code to your respectieve country ISO 2 code.
 	* For trial purposes, if **nothing is connected to the pin** it is **set to `True` by default.**
 	* To **set it as `False`** connect a jumper wire between **`PIN 16`** and **`Gnd`**
 
+
 ### Steps after all circuit-connections are made
 * Once everything is connected properly, follow the **first part** of the **Installing and Setup**. 
 * __Test the program to check if everything is working.__
 * Once everything works, run the 2nd part of **Installing and Setup** to setup autorun using **daemontools**
+
 
 ### Installing and Setup
 #### Part 1:
@@ -98,6 +112,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 * A service will be created using **daemontools** named **water_level_sensor** and will run automatically thereafter. 
 * To read up on daemontools, and/or to manage services using daemontools, visit [here](http://samliu.github.io/2017/01/10/daemontools-cheatsheet.html), and/or [here](https://cr.yp.to/daemontools.html), and/or [here.](https://isotope11.com/blog/manage-your-services-with-daemontools)
 
+
 ### Aliases for handling daemontools service
 * The script **setup_daemontools.sh** has setup some aliases to start/stop/pause/status the **water_level_sensor** services
 * The list of aliases are as follows:
@@ -106,6 +121,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 	* `wls_pause` --> Pauses the service
 	* `wls_stat`  --> Checks the status of the service
 * Use the above aliases to manipulate the service.
+
 
 ### Project Path and Logs
 * Project path in RPi is `~/Projects/WaterLevelSensor/`
