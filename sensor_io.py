@@ -42,12 +42,24 @@ def read_distance():
 	GPIO.output(TRIG, False)
 	
 	# Calculating Pulse duration and distance
+	# Setting a limitation to the infinite loop
+	iter_count = 0
 	# Initially when the pulse is being sent, the ECHO is LOW
 	while GPIO.input(ECHO)==0:
+		iter_count+=1
 		pulse_start = time.time()
+		if iter_count >= 50000:
+			raise Exception("Cannot read from the sensor!")
+	
+	# Setting a limitation to the infinite loop
+	iter_count = 0
 	# After the Pulse is sent, the ECHO becomes HIGH
 	while GPIO.input(ECHO)==1:
+		iter_count+=1
 		pulse_end=time.time()
+		if iter_count >= 50000:
+			raise Ecxeption("Cannot read from the sensor!")
+	
 	# Difference in time is the duration
 	pulse_duration = pulse_end - pulse_start
 	# Calculating: distance = speed * time
