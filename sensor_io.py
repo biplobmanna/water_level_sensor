@@ -29,8 +29,11 @@ TRIG_SUMP = 27
 ECHO_SUMP = 22
 
 # Motor Switch to set on/off
-MOTOR_SWITCH = 25
+MOTOR_SWITCH = 25 # Will be connected to the relay middle pin
+
+# The parallel switch which will control whether the motor is on/off
 NORMAL_SWITCH = 16
+SWITCH_STATUS = False
 
 # Setting the appropriate PIN mode
 GPIO.setup(TRIG, GPIO.OUT)
@@ -43,7 +46,11 @@ GPIO.setup(MOTOR_SWITCH, GPIO.OUT)
 GPIO.setup(NORMAL_SWITCH, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Set the motor_switch as On/Off
+# Since motor switch will be connected to a relay,
+# This will update teh relay with the "status"
 def set_motor_switch(status):
+	global SWITCH_STATUS
+	SWITCH_STATUS = status
 	if status:
 		print('Motor turned ON')
 		GPIO.output(MOTOR_SWITCH, True)
@@ -51,12 +58,16 @@ def set_motor_switch(status):
 		print('Motor turned OFF')
 		GPIO.output(MOTOR_SWITCH, False)
 
-# Read the physical switch
+# Read the physical switch:
+# Since it is connected to GND, by default it is HIGH
+# and on press, it becomes LOW
+# So, if the button is pressed, reverse the existing status and return
 def read_normal_switch():
-	if GPIO.input(NORMAL_SWITCH):
-		return True
-	else:
-		return False
+	global SWITCH_STATUS
+	if not GPIO.input(NORMAL_SWITCH):
+		SWITCH_STATUS = not SWITCH_STATUS
+		return SWITCH_STATUS
+	return SWITCH_STATUS
 
 # Function that reads distance from the HC-SR04 sensor
 def read_distance():
