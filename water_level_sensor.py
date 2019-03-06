@@ -32,7 +32,7 @@ def init_all():
 		log.debug('Error fetching data from Firebase!')
 		# Setting all data as default, so that the program runs without Internet
 		distance = DISTANCE_DEFAULT
-		distance_sump = DISTANCE_SUMP
+		distance_sump = DISTANCE_SUMP_DEFAULT
 		motor_running_status = MOTOR_STATUS_DEFAULT
 		sump_present = SUMP_PRESENT_DEFAULT
 	else:
