@@ -5,6 +5,13 @@ import sensor_io as sio
 import firebase_io as fio
 from logger import wls_logger as log
 
+# IF no connection to the internet the following data will be used
+# Change this to modify the default parameters
+DISTANCE_DEFAULT = sio.get_distance()
+DISTANCE_SUMP_DEFAULT = sio.get_distance_sump()
+MOTOR_STATUS_DEFAULT = False
+SUMP_PRESENT = False
+
 # initialise all the global variables
 def init_all():
 	global distance, motor_running_status, sump_present, distance_sump
@@ -23,7 +30,11 @@ def init_all():
 	except:
 		print('Error fetching data from Firebase!')
 		log.debug('Error fetching data from Firebase!')
-		return False
+		# Setting all data as default, so that the program runs without Internet
+		distance = DISTANCE_DEFAULT
+		distance_sump = DISTANCE_SUMP
+		motor_running_status = MOTOR_STATUS_DEFAULT
+		sump_present = SUMP_PRESENT_DEFAULT
 	else:
 		print('Initial distance fetched from FB-DB!')
 		log.debug('Initial distance fetched from FB-DB!')
@@ -33,7 +44,6 @@ def init_all():
 		log.debug('Initial distance_sump fetched from FB-DB!')
 		print('Success fetching sump present or not from FB-DB!')
 		log.debug('Success fetching sump present or not from FB-DB!')
-		return True
 
 # Main Switch Operation
 def main_switch_op():
@@ -44,7 +54,8 @@ def main_switch_op():
 	except:
 		print('Error fetching main_switch status from Firebase!')
 		log.debug('Error fetching main_switch status from Firebase!')
-		return False
+		# If Pi cannot connect to the Internet, assume main_switch is "ON"
+		return True
 	return True
 
 # Distance Operation
@@ -75,13 +86,14 @@ def distance_op():
 	except:
 		print('Error setting the distance in Firebase!')
 		log.debug('Error setting the distance in Firebase!')
+		# If internet connection error, still continue working smoothly!
 		return True
 	return True
 
 # Distance Sump Operation
 def distance_sump_op():
 	global distance_sump, sump_present
-	if not fio.is_sump_present():
+	if not sump_present:
 		return True
 	try:
 		new_distance_sump = sio.read_distance_sump()
@@ -100,6 +112,7 @@ def distance_sump_op():
 	except:
 		print('Error setting distance_sump into firebase!')
 		log.debug('Error setting distance_sump into firebase!')
+		# If no internet connection, still continue running smoothly
 		return True
 	return True
 
@@ -110,6 +123,7 @@ def motor_run_op():
 	new_motor_running_status = sio.is_distance_over_threshold(distance, motor_running_status)
 	
 	# Check if sump present or not, if present, checking if water present or not
+	# If water is not present, it is by default True
 	if sump_present:
 		sump_water_present = not sio.is_distance_sump_over_threshold(distance_sump)
 	else:
@@ -137,7 +151,7 @@ def run_mechanism():
 		sio.set_motor_switch(False)
 		return
 	
-	# If main_switch is off, switch off motor
+	# If s/w  main_switch is off, switch off motor
 	if not main_switch_op():
 		sio.set_motor_switch(False)
 		return
@@ -159,14 +173,12 @@ def run_mechanism():
 # Main run function
 # Only need to call it and then leave it alone
 def run():
+	# Initialise all global variables
+	init_all()
 	while True:
 		run_mechanism()
 		# Sleeping for 200ms after each run
 		time.sleep(0.200)
 
-# initialise global variables
-while not init_all():
-	# Sleeping for 100ms after a failure
-	time.sleep(0.100)
-# Calling the main run function to run everything
+# Running th Program
 run()
