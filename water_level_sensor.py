@@ -10,7 +10,7 @@ from logger import wls_logger as log
 DISTANCE_DEFAULT = sio.read_distance()
 DISTANCE_SUMP_DEFAULT = sio.read_distance_sump()
 MOTOR_STATUS_DEFAULT = False
-SUMP_PRESENT = False
+SUMP_PRESENT_DEFAULT = False
 
 # initialise all the global variables
 def init_all():
