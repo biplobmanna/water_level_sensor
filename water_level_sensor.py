@@ -7,8 +7,18 @@ from logger import wls_logger as log
 
 # IF no connection to the internet the following data will be used
 # Change this to modify the default parameters
-DISTANCE_DEFAULT = sio.read_distance()
-DISTANCE_SUMP_DEFAULT = sio.read_distance_sump()
+# Initialise the distance's from the sensor
+# If error, initialise them as 0
+try:
+	DISTANCE_DEFAULT = sio.read_distance()
+except:
+	DISTANCE_DEFAULT = 0
+try:
+	DISTANCE_SUMP_DEFAULT = sio.read_distance_sump()
+except:
+	DISTANCE_SUMP_DEFAULT = sio.read_distance_sump()
+
+# Initialise the rest
 MOTOR_STATUS_DEFAULT = False
 SUMP_PRESENT_DEFAULT = False
 
