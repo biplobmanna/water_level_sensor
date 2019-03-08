@@ -64,7 +64,7 @@ Change the **country** code to your respectieve country ISO 2 code.
 * Visit this [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) to setup the Pi and the sensor. 
 * Setup the resistors and other connections according to the schematic provided in the [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi). Keep the _**resistors connection the same**_, only change the **TRIG, ECHO** pins connection as per the information below.
 * Since, there are 2 HC-SR04 sensors required for this project, connect the **Pins** as per the following:
-	* For the 1st sensor, which will be connected to the main tank, connect:
+	* For the 1st sensor, which will be connected to the main tank, connect to GPIO numbers:
 		* `TRIG = 23`
 		* `ECHO = 24`
 	* For the 2nd sensor, which will be connected to the underground sump, connect:
@@ -75,13 +75,13 @@ Change the **country** code to your respectieve country ISO 2 code.
 
 
 ### Connecting the Motor Switch and the Main H/W Switch
-* Connect the **Motor Switch** to `PIN 25`
-	* For demo purposes, connect an LED to `PIN 25`
+* Connect the **Motor Switch** to `GPIO 25`
+	* For demo purposes, connect an LED to `GPIO 25`
 	* To setup connections to LED, take help from this [website.](https://thepihut.com/blogs/raspberry-pi-tutorials/27968772-turning-on-an-led-with-your-raspberry-pis-gpio-pins)
-* Connect the **Main HW Switch** to `PIN 16`
+* Connect the **Main HW Switch** to `GPIO 16`
 	* Setup the connection of the switch as per this [website](https://electrosome.com/using-switch-raspberry-pi/).
 	* For trial purposes, if **nothing is connected to the pin** it is **set to `True` by default.**
-	* To **set it as `False`** connect a jumper wire between **`PIN 16`** and **`Gnd`**
+	* To **set it as `False`** connect a jumper wire between **`GPIO 16`** and **`Gnd`**
 
 
 ### Steps after all circuit-connections are made
