@@ -66,6 +66,7 @@ def read_normal_switch():
 	global SWITCH_STATUS
 	if not GPIO.input(NORMAL_SWITCH):
 		SWITCH_STATUS = not SWITCH_STATUS
+		time.sleep(0.100)
 		return SWITCH_STATUS
 	return SWITCH_STATUS
 
