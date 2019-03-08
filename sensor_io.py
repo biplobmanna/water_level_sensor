@@ -42,21 +42,22 @@ GPIO.setup(TRIG_SUMP, GPIO.OUT)
 GPIO.setup(ECHO_SUMP, GPIO.IN)
 
 # Setting the appropriate PIN mode switch
-GPIO.setup(MOTOR_SWITCH, GPIO.OUT)
 GPIO.setup(NORMAL_SWITCH, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 # Set the motor_switch as On/Off
 # Since motor switch will be connected to a relay,
 # This will update teh relay with the "status"
 def set_motor_switch(status):
-	global SWITCH_STATUS
-	SWITCH_STATUS = status
+	#global SWITCH_STATUS
+	#SWITCH_STATUS = status
 	if status:
 		print('Motor turned ON')
+		GPIO.setup(MOTOR_SWITCH, GPIO.OUT)
 		GPIO.output(MOTOR_SWITCH, True)
 	else:
 		print('Motor turned OFF')
-		GPIO.output(MOTOR_SWITCH, False)
+		GPIO.setup(MOTOR_SWITCH, GPIO.IN)
+		#GPIO.output(MOTOR_SWITCH, False)
 
 # Read the physical switch:
 # Since it is connected to GND, by default it is HIGH
