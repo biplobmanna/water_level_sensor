@@ -16,7 +16,7 @@ except:
 try:
 	DISTANCE_SUMP_DEFAULT = sio.read_distance_sump()
 except:
-	DISTANCE_SUMP_DEFAULT = sio.read_distance_sump()
+	DISTANCE_SUMP_DEFAULT = 0
 
 # Initialise the rest
 MOTOR_STATUS_DEFAULT = False
