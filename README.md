@@ -64,13 +64,13 @@ Change the **country** code to your respectieve country ISO 2 code.
 * Visit this [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) to setup the Pi and the sensor. 
 * Setup the resistors and other connections according to the schematic provided in the [website](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi). Keep the _**resistors connection the same**_, only change the **TRIG, ECHO** pins connection as per the information below.
 * Since, there are 2 HC-SR04 sensors required for this project, connect the **Pins** as per the following:
-	* For the 1st sensor, which will be connected to the main tank, connect to GPIO numbers:
+	* For the 1st sensor, which will be connected to the main tank, connect to **`GPIO`** numbers:
 		* `TRIG = 23`
 		* `ECHO = 24`
 	* For the 2nd sensor, which will be connected to the underground sump, connect:
 		* `TRIG = 27`
 		* `ECHO = 22`
-	* All the Pin numbering is as per **BCM mode**. To check the Pin Layout of RPi, visit [here.](https://pinout.xyz/)
+	* All the GPIO numbering is as per **BCM mode**. To check the GPIO Layout of RPi, visit [here.](https://pinout.xyz/)
 * For both the sensors, connect **Vcc** of the sensor to any of the **5V** pin of the Pi, and **Gnd** of the sensor to any of **Gnd** pins of the Pi.
 
 
