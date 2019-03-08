@@ -155,11 +155,16 @@ def motor_run_op():
 
 # Running the entire mechanism
 def run_mechanism():
+	global motor_running_status
 	# If h/w switch is off, switch off motor
 	# Perform no operation no-matter what be the case
-	if not sio.read_normal_switch():
+	switch_status = sio.read_normal_switch()
+	if not switch_status:
 		sio.set_motor_switch(False)
 		return
+	
+	# Setting the motor_switch_status as per the soft_switch_status
+	motor_running_status = switch_status and sio.SWITCH_SOFT_STATUS
 	
 	# If s/w  main_switch is off, switch off motor
 	if not main_switch_op():
