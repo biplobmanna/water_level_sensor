@@ -34,6 +34,7 @@ MOTOR_SWITCH = 25 # Will be connected to the relay middle pin
 # The parallel switch which will control whether the motor is on/off
 NORMAL_SWITCH = 16
 SWITCH_STATUS = False
+SWITCH_SOFT_STATUS = SWITCH_STATUS
 
 # Setting the appropriate PIN mode
 GPIO.setup(TRIG, GPIO.OUT)
@@ -49,6 +50,8 @@ GPIO.setup(NORMAL_SWITCH, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # This will update teh relay with the "status"
 def set_motor_switch(status):
 	#global SWITCH_STATUS
+	global SWITCH_SOFT_STATUS
+	SWITCH_SOFT_STATUS = status
 	#SWITCH_STATUS = status
 	if status:
 		print('Motor turned ON')
@@ -64,11 +67,11 @@ def set_motor_switch(status):
 # and on press, it becomes LOW
 # So, if the button is pressed, reverse the existing status and return
 def read_normal_switch():
-	global SWITCH_STATUS
+	global SWITCH_STATUS, SWITCH_SOFT_STATUS
 	if not GPIO.input(NORMAL_SWITCH):
 		SWITCH_STATUS = not SWITCH_STATUS
+		SWITCH_SOFT_STATUS = SWITCH_STATUS
 		time.sleep(0.100)
-		return SWITCH_STATUS
 	return SWITCH_STATUS
 
 # Function that reads distance from the HC-SR04 sensor
