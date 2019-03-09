@@ -20,9 +20,9 @@
 		* If the water depth in the overhead tank is lesser than a **min threshold**, i.e, tank is full.
 			* Switch **`Motor OFF`**
 		* For all other cases, maintain the **previous state** of the motor.
-* A main **HW Switch** is also connected to the circuit, which can be used to manually turn the circuit On/Off
+* A main **HW Switch** is also connected to the circuit, which can turn on the motor at leisure provided that the tank is not full to the brim and the sump(if present) has water in it to pump. 
 * All the realtime **depths, motor status** is sent to firebase, which can then be viewed from a Mobile Application. 
-* A **Software main switch** is also present, which can also control the circuit On/Off from the Mobile App. 
+* A **Software main switch** is also present, which can control the circuit On/Off from the Mobile App. 
 
 
 ### Hardware Requirements
