@@ -89,6 +89,9 @@ Change the **country** code to your respectieve country ISO 2 code.
 * In place of the **LED**, you can also connect a **relay**, which will be in turn connected to Motor.
 * All the Pin numbering is in **`BCM Mode`**. Keep that in mind while making connections!
 * The **HW switch** is not given in the diagram, it is easy enough to do it on your own. 
+* Resistors connected are as follows:
+	* `Horizontally connected = 1 kOhm each`
+	* `Vertically connected = 2 kOhm, 330 Ohm, 2 kOhm` from left to right in the image above.
 
 
 ## Steps after all circuit-connections are made
