@@ -83,8 +83,15 @@ Change the **country** code to your respectieve country ISO 2 code.
 	* For trial purposes, if **nothing is connected to the pin** it is **set to `True` by default.**
 	* To **set it as `False`** connect a jumper wire between **`GPIO 16`** and **`Gnd`**
 
+### Circuit Diagram and notes:
+![Circuit Diagram](https://github.com/biplobmanna/water_level_sensor/blob/master/Circuit%20Diagram.png)
+#### Notes:
+* In place of the **LED**, you can also connect a **relay**, which will be in turn connected to Motor.
+* All the Pin numbering is in **`BCM Mode`**. Keep that in mind while making connections!
+* The **HW switch** is not given in the diagram, it is easy enough to do it on your own. 
 
-### Steps after all circuit-connections are made
+
+## Steps after all circuit-connections are made
 * Once everything is connected properly, follow the **first part** of the **Installing and Setup**. 
 * __Test the program to check if everything is working.__
 * Once everything works, run the 2nd part of **Installing and Setup** to setup autorun using **daemontools**
