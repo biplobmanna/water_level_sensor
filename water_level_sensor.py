@@ -153,13 +153,24 @@ def motor_run_op():
 			log.debug('Error setting the motor running status in Firebase')
 	return motor_running_status
 
-# Running the entire mechanism
-def run_mechanism():
+# Checking the status of motor switch
+# For both h/w and firebase-db
+def motor_switch_op():
 	global motor_running_status
 	# If h/w switch is off, switch off motor
 	# Perform no operation no-matter what be the case
 	motor_running_status = sio.read_normal_switch()
-	if not motor_running_status:
+	# Also check the motor switch status of firebase
+	try:
+		motor_running_status = motor_running_status or fio.is_motor_switch_on()
+	except:
+		log.debug('Cannot fetch motor_switch_status from firebase!')
+	return motor_running_status
+
+# Running the entire mechanism
+def run_mechanism():
+	# Check if the motor switch is running or not
+	if not motor_switch_op():
 		sio.set_motor_switch(False)
 	
 	# If s/w  main_switch is off, switch off motor
